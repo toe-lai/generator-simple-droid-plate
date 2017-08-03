@@ -1,23 +1,23 @@
 <resources>
 
     <!-- Exists for inheritance purposes -->
-    <style name="LittdroidTemplate" parent="LittdroidTemplate.Base" />
+    <style name="<%= app_name %>" parent="<%= app_name %>.Base" />
 
-    <style name="LittdroidTemplate.Base" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="<%= app_name %>.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorPrimaryDark">@color/theme_primary_dark</item>
         <item name="colorAccent">@color/theme_accent</item>
     </style>
 
-    <style name="LittdroidTemplate.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="<%= app_name %>.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="LittdroidTemplate.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="<%= app_name %>.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!-- Activity styles -->
-    <style name="LittdroidTemplate.Template"/>
+    <style name="<%= app_name %>.Template"/>
 
     <!-- Button styles -->
-    <style name="Widget.LittdroidTemplate.Button.Base" parent="Widget.AppCompat.Button">
+    <style name="Widget.<%= app_name %>.Button.Base" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/app_white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Button</item>

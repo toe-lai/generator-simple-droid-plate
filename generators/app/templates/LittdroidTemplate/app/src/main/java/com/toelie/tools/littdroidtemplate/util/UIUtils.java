@@ -1,4 +1,4 @@
-package com.toelie.tools.littdroidtemplate.util;
+package <%= app_package %>.util;
 
 import android.content.Context;
 import android.util.TypedValue;

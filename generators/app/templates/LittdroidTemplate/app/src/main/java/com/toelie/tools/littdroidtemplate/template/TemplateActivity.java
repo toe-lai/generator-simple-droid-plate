@@ -1,11 +1,11 @@
-package com.toelie.tools.littdroidtemplate.template;
+package <%= app_package %>.template;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.toelie.tools.littdroidtemplate.R;
-import com.toelie.tools.littdroidtemplate.util.ActivityUtils;
+import <%= app_package %>.R;
+import <%= app_package %>.util.ActivityUtils;
 
 
 /**
