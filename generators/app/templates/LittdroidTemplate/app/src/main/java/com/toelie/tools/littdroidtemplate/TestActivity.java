@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.toelie.tools.littdroidtemplate.R;
+import <%=app_package%>.R;
 
 public class TestActivity extends AppCompatActivity {
 
