@@ -1,10 +1,12 @@
-package <%= app_package %>;
+package <%=app_package%>;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.toelie.tools.littdroidtemplate.R;
 
 public class TestActivity extends AppCompatActivity {
 
