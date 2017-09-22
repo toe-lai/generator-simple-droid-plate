@@ -10,7 +10,7 @@
     android:theme="@style/LittdroidTemplate">
     <activity
       android:label="@string/app_name"
-      android:name=".template.TemplateActivity"
+      android:name=".TestActivity"
       android:theme="@style/LittdroidTemplate.Template">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
