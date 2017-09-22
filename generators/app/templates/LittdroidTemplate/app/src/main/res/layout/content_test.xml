@@ -8,8 +8,8 @@
   android:layout_height="match_parent"
   android:paddingTop="@dimen/keyline_1"
   android:paddingBottom="@dimen/keyline_1"
-  android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:paddingLeft="@dimen/keyline_1"
+  android:paddingRight="@dimen/keyline_1"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:context="<%= app_package %>.TestActivity"
   tools:showIn="@layout/activity_test">
