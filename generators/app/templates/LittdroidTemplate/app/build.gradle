@@ -1,8 +1,14 @@
+// Manifest version information!
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion rootProject.ext.compileSdkVersion
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  compileSdkVersion build_versions.target_sdk
+  buildToolsVersion build_versions.build_tools
 
   signingConfigs {
     debug {
@@ -21,10 +27,10 @@ android {
 
   defaultConfig {
     applicationId "com.toelie.tools.littdroidtemplate"
-    minSdkVersion rootProject.ext.minSdkVersion
-    targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode = Integer.valueOf("" + appVersionCode).intValue()
-    versionName "${appVersionName}"
+    minSdkVersion build_versions.min_sdk
+    targetSdkVersion build_versions.target_sdk
+    versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
@@ -66,73 +72,69 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
   // Android Support Libraries
-  implementation "com.android.support:appcompat-v7:$support_version"
-  implementation "com.android.support:support-vector-drawable:$support_version"
-  implementation "com.android.support:design:$support_version"
-  implementation "com.android.support:preference-v7:$support_version"
-  implementation "com.android.support:preference-v14:$support_version"
-  implementation "com.android.support:design:$support_version"
-  implementation "com.android.support:percent:$support_version"
-  implementation "com.android.support:transition:$support_version"
-  implementation "com.android.support:support-compat:$support_version" // v4
-  implementation "com.android.support:support-v13:$support_version"
-  implementation "com.android.support:gridlayout-v7:$support_version"
-  implementation "com.android.support:recyclerview-v7:$support_version"
-  implementation "com.android.support:cardview-v7:$support_version"
-  implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+  implementation deps.support.annotations
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  implementation deps.support.cardview
+  implementation deps.support.design
+  implementation deps.support.gridlayout
+  implementation deps.support.v4
+  implementation deps.support.core_utils
+  implementation deps.support.vector_drawable
+  implementation deps.support.pref_v7
+  implementation deps.support.pref_v4
+  implementation deps.support.percent
+  implementation deps.support.transition
+  implementation deps.support.support_compat_v4
+  implementation deps.support.support_compat_v7
+  implementation deps.support.constrain_layout
 
-  // Android Architecture Components - LiveData and ViewModel
-  implementation "android.arch.lifecycle:common-java8:$arch_version"
-  implementation "android.arch.lifecycle:extensions:$arch_version"
-  // Android Architecture Components - Room
-  implementation "android.arch.persistence.room:runtime:$arch_version"
-  annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
-  // Android Architecture Components - Paging
-  implementation "android.arch.paging:runtime:1.0.0-alpha3"
+  implementation deps.room.runtime
+  implementation deps.lifecycle.runtime
+  implementation deps.lifecycle.extensions
+  implementation deps.lifecycle.java8
 
-  // Dagger2
-  implementation "com.google.dagger:dagger:$dagger_version"
-  implementation "com.google.dagger:dagger-android:$dagger_version"
-  implementation "com.google.dagger:dagger-android-support:$dagger_version"
-  annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-  annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+  implementation deps.retrofit.runtime
+  implementation deps.retrofit.gson
+  implementation deps.glide
 
-  // Retrofit2
-  implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-  implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-  implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-  implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_logging_interceptor_version"
+  implementation deps.dagger.runtime
+  implementation deps.dagger.android
+  implementation deps.dagger.android_support
+  implementation deps.constraint_layout
 
-  // Facebook Stetho
-  implementation "com.facebook.stetho:stetho:$facebook_stetho_version"
+  implementation deps.timber
 
-  // Timber
-  implementation "com.jakewharton.timber:timber:$timber_version"
+  annotationProcessor deps.dagger.android_support_compiler
+  annotationProcessor deps.dagger.compiler
+  annotationProcessor deps.room.compiler
+  annotationProcessor deps.lifecycle.compiler
 
-  // Glide
-  implementation "com.github.bumptech.glide:glide:$glide_version"
+  testImplementation deps.junit
+  testImplementation deps.mock_web_server
+  testImplementation (deps.arch_core.testing, {
+    exclude group: 'com.android.support', module: 'support-compat'
+    exclude group: 'com.android.support', module: 'support-annotations'
+    exclude group: 'com.android.support', module: 'support-core-utils'
+  })
+  testImplementation deps.mockito.core
 
-  // Exo Player
-  implementation "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
-  implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"
+  androidTestImplementation deps.support.app_compat
+  androidTestImplementation deps.support.recyclerview
+  androidTestImplementation deps.support.cardview
+  androidTestImplementation deps.support.design
 
-  // Testing-only dependencies
-  testCompile "junit:junit:$junit_version"
+  androidTestImplementation(deps.espresso.core, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+    exclude group: 'com.google.code.findbugs', module: 'jsr305'
+  })
+  androidTestImplementation(deps.espresso.contrib, {
+    exclude group: 'com.android.support', module: 'support-annotations'
+    exclude group: 'com.google.code.findbugs', module: 'jsr305'
+  })
 
-  androidTestCompile "com.android.support.test:runner:$test_runner_version"
-  androidTestCompile "com.android.support.test:rules:$test_rules_version"
-  androidTestCompile "com.android.support.test.espresso:espresso-core:$espresso_version"
-
-  androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
-    exclude group: 'com.android.support', module: 'appcompat-v7'
-    exclude group: 'com.android.support', module: 'support-v4'
-    exclude module: 'recyclerview-v7'
-  }
-
-  // Force usage of dependencies in the test app, since it is internally used by the runner module.
-  androidTestCompile "com.android.support:support-annotations:$support_version"
-  androidTestCompile "com.android.support:support-v4:$support_version"
-  androidTestCompile "com.android.support:recyclerview-v7:$support_version"
+  androidTestImplementation(deps.arch_core.testing, {
+  })
 
 }
 
